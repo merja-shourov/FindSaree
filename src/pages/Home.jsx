@@ -23,13 +23,13 @@ const Home = () => {
         </div>
       </section>
 
+      <section id="FeaturedSaree">
+        <FeaturedSarees />
+      </section>
       <section className="TopCategories">
         <TopCategories />
       </section>
 
-      <section id="FeaturedSaree">
-        <FeaturedSarees />
-      </section>
 
       <section id="HappyCustomers">
         <HappyCustomers />
