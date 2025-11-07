@@ -23,12 +23,10 @@ export const registerUser = async (req, res) => {
       email,
       password: hashPassword,
     });
-    res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      taken: generateTaken(user._id),
-    });
+
+
+
+    res.json({ success: true, message: "User registered successfully" });
   } catch (error) {
     res.status(500).json({ message: ` error ${error.message}` });
   }
@@ -38,23 +36,19 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user =await User.findOne({ email });
+    const user = await User.findOne({ email });
 
     if (!user) {
       return res.status(400).json({ message: "user not found!" });
     }
 
-    const isMatched =await bcrypt.compare(password, user.password);
-    
+    const isMatched = await bcrypt.compare(password, user.password);
+
     if (!isMatched) {
       return res.status(400).json({ message: "invalid credintial" });
     }
 
-    res.json({
-      id: user._id,
-      name: user.name,
-      token: generateTaken(user._id),
-    });
+    res.json({ success: true, message: "Login successful", user });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -62,6 +56,6 @@ export const loginUser = async (req, res) => {
 
 // default router
 
-export const defautRoute = async (req, res )=>{
-    res.send("hello world");
-}
+export const defautRoute = async (req, res) => {
+  res.send("hello world");
+};

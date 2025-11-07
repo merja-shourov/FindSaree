@@ -16,7 +16,7 @@ const Header = () => {
           <NavLink  className="hover:text-pink-600 transition duration-150" to={"/about"}> About </NavLink>
         </div>
         <div className="px-5 py-2 bg-pink-600 text-[16px] font-semibold rounded hover:bg-pink-700 shadow-lg">
-          <NavLink to={"/login"}>Login / Registration</NavLink>
+          <NavLink to={"/login"}>Login</NavLink>
         </div>
       </div>
     </div>

@@ -1,40 +1,41 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 
-export default function Login() {
-  const navigate = useNavigate();
+export default function Register() {
+  const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  const [message, setMessage] = useState();
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userData = { email, password };
 
-    const url = "http://localhost:5000/api/auth/login";
+    const userData = { name, email, password };
+    // console.log(name, email, password);
+
+    const url = "http://localhost:5000/api/auth/registration";
+
     try {
       const res = await fetch(url, {
         method: "POST",
-        headers: {
-          "content-type": "application-json",
-        },
+        headers: { "content-type": "application/json" },
         body: JSON.stringify(userData),
       });
 
-      const data = res.json();
-      console.log(data);
-      if (res.ok) {
-        setMessage("✅ Login successful!");
-        setTimeout(() => navigate("/"), 1000);
-      } else {
-        setMessage(`❌ ${data.message}`);
-      }
-    } catch (error) {
-      setMessage("Something went wrong!");
-      console.error("login error", error);
+      const data = await res.json();
+      setMessage(data.message);
+
+    } catch (err) {
+      setMessage("something went wrong");
+      console.error(err);
     }
+
+    setName("");
+    setEmail("");
+    setPassword("");
   };
+
   return (
     <div className="min-h-screen flex">
       {/* Left Image Section */}
@@ -42,17 +43,24 @@ export default function Login() {
         className="hidden lg:flex w-1/2 bg-cover bg-center"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=800&q=80')",
+            "url('https://images.unsplash.com/photo-1601987077683-6ec3b94e7e22?auto=format&fit=crop&w=800&q=80')",
         }}
       ></div>
 
       {/* Right Form Section */}
       <div className="flex flex-col justify-center items-center w-full lg:w-1/2 bg-white p-8">
         <h2 className="text-3xl font-bold text-pink-600 mb-6">
-          Welcome Back 💖
+          Create Account 🌸
         </h2>
 
         <form className="w-full max-w-sm" onSubmit={handleSubmit}>
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            type="text"
+            placeholder="Full Name"
+            className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-400 outline-none"
+          />
           <input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -72,23 +80,22 @@ export default function Login() {
             type="submit"
             className="w-full bg-pink-600 text-white py-3 rounded-lg hover:bg-pink-700 transition"
           >
-            Login
+            Register
           </button>
-
-          {message && (
-            <p className="mt-4 text-center text-gray-700 font-medium">
-              {message}
-            </p>
-          )}
         </form>
 
+        {message && (
+          <p className="mt-4 text-center text-gray-700 font-medium bg-gray-100 px-2 rounded">
+            {message}
+          </p>
+        )}
         <p className="mt-4 text-gray-600">
-          Don't have an account?{" "}
+          Already have an account?{" "}
           <Link
-            to="/register"
+            to="/login"
             className="text-pink-600 font-medium hover:underline"
           >
-            Register
+            Login
           </Link>
         </p>
       </div>
