@@ -2,31 +2,34 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 
 export default function Login() {
+
   const navigate = useNavigate();
+
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-
   const [message, setMessage] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userData = { email, password };
-
-    const url = "http://localhost:5000/api/auth/login";
+    console.log(email, password);
+    
     try {
+      const url = "http://localhost:5000/api/auth/login";
       const res = await fetch(url, {
         method: "POST",
         headers: {
-          "content-type": "application-json",
+          "content-type": "application/json",
         },
         body: JSON.stringify(userData),
       });
 
-      const data = res.json();
+      const data = await res.json();
       console.log(data);
+
       if (res.ok) {
         setMessage("✅ Login successful!");
-        setTimeout(() => navigate("/"), 1000);
+        setTimeout(() => navigate("/dashboard"), 1000);
       } else {
         setMessage(`❌ ${data.message}`);
       }
@@ -83,7 +86,7 @@ export default function Login() {
         </form>
 
         <p className="mt-4 text-gray-600">
-          Don't have an account?{" "}
+          Don't have an account?
           <Link
             to="/register"
             className="text-pink-600 font-medium hover:underline"

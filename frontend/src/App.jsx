@@ -9,6 +9,7 @@ import Contact from "./pages/Contact.jsx";
 import About from "./pages/About.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
 
 function App() {
   return (
@@ -25,6 +26,8 @@ function App() {
 
           <Route path="login" element={<Login />}></Route>
           <Route path="register" element={<Register />}></Route>
+
+          <Route path="dashboard" element={<Dashboard/>} />
 
         </Route>
       </Routes>
