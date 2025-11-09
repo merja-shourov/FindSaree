@@ -1,19 +1,21 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 
 export default function Register() {
-  
-  const navigate = useNavigate();
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+
   const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const userData = { name, email, password };
     // console.log(name, email, password);
+
     const url = "http://localhost:5000/api/auth/registration";
+
     try {
       const res = await fetch(url, {
         method: "POST",
@@ -23,10 +25,6 @@ export default function Register() {
 
       const data = await res.json();
       setMessage(data.message);
-
-      setTimeout(() => {
-        navigate('/login')
-      }, 1000);
 
     } catch (err) {
       setMessage("something went wrong");

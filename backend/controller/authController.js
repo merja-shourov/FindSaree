@@ -39,21 +39,23 @@ export const loginUser = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(400).json({ message: "User not found!" });
+      return res.status(400).json({ message: "user not found!" });
     }
+
     const isMatched = await bcrypt.compare(password, user.password);
+
     if (!isMatched) {
-      return res.status(400).json({ message: "Invalid credintial" });
+      return res.status(400).json({ message: "invalid credintial" });
     }
 
     res.json({ success: true, message: "Login successful", user });
-
-  }catch(error) {
+  } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
 // default router
+
 export const defautRoute = async (req, res) => {
   res.send("hello world");
 };
