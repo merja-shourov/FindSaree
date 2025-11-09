@@ -12,12 +12,12 @@ build/
 coverage/
 
 # environment variables
-.env
-.env.local
-.env.*.local
-.env.development.local
-.env.test.local
-.env.production.local
+# .env
+# .env.local
+# .env.*.local
+# .env.development.local
+# .env.test.local
+# .env.production.local
 
 # editor/IDE specific files
 .idea/

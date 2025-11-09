@@ -54,8 +54,4 @@ export const loginUser = async (req, res) => {
   }
 };
 
-// default router
 
-export const defautRoute = async (req, res) => {
-  res.send("hello world");
-};

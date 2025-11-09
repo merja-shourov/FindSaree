@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
+import Dashboard from "./Dashboard";
 
 export default function Login() {
   const navigate = useNavigate();
+
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
@@ -10,23 +12,25 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userData = { email, password };
 
     const url = "http://localhost:5000/api/auth/login";
     try {
       const res = await fetch(url, {
         method: "POST",
         headers: {
-          "content-type": "application-json",
+          "content-type": "application/json",
         },
-        body: JSON.stringify(userData),
+        body: JSON.stringify({email, password}),
       });
 
       const data = res.json();
       console.log(data);
+      
+
       if (res.ok) {
         setMessage("✅ Login successful!");
-        setTimeout(() => navigate("/"), 1000);
+      
+        setTimeout(() => navigate("/dashboard"), 1000);
       } else {
         setMessage(`❌ ${data.message}`);
       }
